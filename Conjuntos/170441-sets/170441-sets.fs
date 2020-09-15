@@ -113,7 +113,7 @@ let main argv =
         printf "The subset: %A\n" (A.IsSubsetOf B)
         printf "The subset: %A\n" (B.IsSubsetOf A)
     //  Superconjunto de un conjunto
-    let superconjunto =
+    let superconjunto() =
         //  Se declaran los conjuntos
         let B = Set.ofSeq [0 .. 1.. 9]
         let A = Set.ofSeq [1 .. 1.. 5]

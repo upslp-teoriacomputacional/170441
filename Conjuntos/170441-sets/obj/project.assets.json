@@ -113,11 +113,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\User\\Documents\\Teoria Computaciona\\170441\\170441-sets\\170441-sets.fsproj",
+      "projectUniqueName": "G:\\User\\Documents\\Teoria Computaciona\\170441\\Conjuntos\\170441-sets\\170441-sets.fsproj",
       "projectName": "170441-sets",
-      "projectPath": "G:\\User\\Documents\\Teoria Computaciona\\170441\\170441-sets\\170441-sets.fsproj",
+      "projectPath": "G:\\User\\Documents\\Teoria Computaciona\\170441\\Conjuntos\\170441-sets\\170441-sets.fsproj",
       "packagesPath": "C:\\Users\\gerar\\.nuget\\packages\\",
-      "outputPath": "G:\\User\\Documents\\Teoria Computaciona\\170441\\170441-sets\\obj\\",
+      "outputPath": "G:\\User\\Documents\\Teoria Computaciona\\170441\\Conjuntos\\170441-sets\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gerar\\AppData\\Roaming\\NuGet\\NuGet.Config"
