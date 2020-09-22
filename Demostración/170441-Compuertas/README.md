@@ -7,3 +7,5 @@ At the same time, I was looking for commands, I went ahead with the coding and i
 -	&&	Boolean AND
 # **Problems and solutions during the work’s programming**
 My only issue with during the programming was the inclusive or. At first, I did not remember what that was, but with a little of investigation I ended up knowing that was equal to a XOR operation. F# do not accept such operation, hence I used the decomposed formula which uses OR, NOT and AND logic.
+# **Is it a NP or P complexity?**
+Because the code includes a set of chained FORs, it indicates O(n²) for the complexity. Hence, the complexity will be polynomial.
