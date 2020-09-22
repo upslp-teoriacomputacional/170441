@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>_170441_Compuertas</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="170441-Compuertas.fs" />
+  </ItemGroup>
+
+</Project>
