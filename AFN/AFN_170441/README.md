@@ -17,6 +17,7 @@ To commence the coding of the NFA I modified the transition table of the a*ba* b
 |Q9|Q3|E|E|
 |Q10|E|Q11|E|
 |Q11|Q7|E|E|
+
 ### Transition table 2
 | ESTADO  | ""  | a  | b  |
 | :------------: | :------------: | :------------: | :------------: |
@@ -32,6 +33,7 @@ To commence the coding of the NFA I modified the transition table of the a*ba* b
 |Q9|E|E|E|
 |Q10|E|E|E|
 |Q11|E|E|E|
+
 With this new transition table is possible to make a NFA that does not cycle infinitely. 
 The NFA program was made using recursive functions that receives the initial node, a string and a “”. With these parameters, the code makes as many branches as possible that will result in a error state or accept state of the initial string.
 # **Commands for executing operations**
