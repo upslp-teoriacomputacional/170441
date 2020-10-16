@@ -1,4 +1,4 @@
-#**COLLABORATOR**
+# **COLLABORATOR**
 This code was made with the help of [Vazquez Reyes Rodolfo Emanuel - 171072]( https://github.com/upslp-teoriacomputacional/171072)
 # **How did you solve the problem?**
 To commence the coding of the NFA I modified the transition table of the a*ba* because the original one will cause an infinite loop and result in an error called “Stack Overflow”. Once that is changed, the next step was to divide the transition table into two tables just as it is displayed below.
