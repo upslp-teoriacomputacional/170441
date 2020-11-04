@@ -58,7 +58,7 @@ let main argv =
         if Regex.IsMatch(word, "(str|int|bool)") then
             tokens <- tokens @ ["DATATYPE", word]
         //  This will check if a token has IDENTIFIER declaration
-        elif Regex.IsMatch(word, "[a-z]") then
+        elif Regex.IsMatch(word, "[a-z]|[A-Z]") then
             tokens <- tokens @ ["IDENTIFIER", word]
         //  This will check if a token has datatype OPERATOR
         elif Regex.IsMatch(word, "(\*|\-|\/|\+|\%|\=)") then
