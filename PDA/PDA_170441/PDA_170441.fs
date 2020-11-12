@@ -11,17 +11,13 @@
  *              
  *      Written:    12/11/2020
  * Last updated:    13/11/2020
- **************************************************************************** *)
+ *****************************************************************************)
 open System
-
 //  Because we have nodes with two states, we need a second table that has those second values
-
 let tabla = [ [1;-1;-1]; [1;1;1]; [-10;-1;-1];]
 let tabla2 = [ [-1;-1;-1]; [2;-1;-1]; [-1;-1;-1];]
 let pdaRules = [["Z;SZ";"E";"E"];["S;e|Z;e";"S;SX";"X;e"];["E";"E";"E"];]
 let mutable nPrint = 1;
-
-
 //  Matching functions aba (Function Made by Vazquez Reyes Rodolfo Emanuel)
 let caracter (mtch:string) :string =
     //  match evaluates the first char of the string and returns the same value
@@ -53,8 +49,10 @@ let body () =
     printfn ""
     Console.ForegroundColor<-ConsoleColor.White
 //  Prints a transition table for the evaluated string (Function Made by Vazquez Reyes Rodolfo Emanuel & Montalvo Becerra Juan Gerardo)
-let transitionTable (cd:string)(accepted:bool) =
+let transitionTable (cd:string)(accepted:bool)(hStack:string) =
     let mutable key = cd
+    let hStack = hStack.Split '|'
+    let mutable count = 1;
     let mutable color = ConsoleColor.White
     let mutable temp = ""
     //  The color is defined depending on the variable accepted
@@ -63,8 +61,8 @@ let transitionTable (cd:string)(accepted:bool) =
     else
         color <- ConsoleColor.Red
     Console.ForegroundColor<-color
-    printfn "+---------------+---------------+---------------+---------------+"
-    printfn "|  Edo. Actual  |    Caracter   |    Simbolo    |Edo. Siguiente |"
+    printfn "+---------------+---------------+---------------+---------------+--------------+"
+    printfn "|  Edo. Actual  |    Caracter   |    Simbolo    |Edo. Siguiente |     PILA     |"
     while not (key.Equals("")) do
         try
             temp <- key.Remove (key.IndexOf(")")+1)
@@ -77,7 +75,7 @@ let transitionTable (cd:string)(accepted:bool) =
         //  temp|>printfn "%s"
         //  key|>printfn "%s"
         Console.ForegroundColor<-color
-        printfn "+---------------+---------------+---------------+---------------+"
+        printfn "+---------------+---------------+---------------+---------------+--------------+"
         printf "|" 
         Console.ForegroundColor<-ConsoleColor.White
         printf "\t%s\t" (temp.Substring(1,temp.IndexOf(",")-1)) 
@@ -94,22 +92,26 @@ let transitionTable (cd:string)(accepted:bool) =
         Console.ForegroundColor<-ConsoleColor.White
         printf "\t%s\t"  (temp.Substring(temp.IndexOf(">")+1,temp.IndexOf(")")-temp.IndexOf(">")-1))
         Console.ForegroundColor<-color
+        printf "|"
+
+        Console.ForegroundColor<-ConsoleColor.White
+        printf "\t%A\t"  (hStack.[count])
+        Console.ForegroundColor<-color
         printfn "|" 
+        count <- count + 1
     //  At the end, it displays if the chain was valid or not
     if accepted then
-        printfn "+---------------+---------------+---------------+---------------+"
-        printfn "|                       Cadena Valida                           |"
-        printfn "+---------------------------------------------------------------+"
+        printfn "+---------------+---------------+---------------+---------------+--------------+"
+        printfn "|                               Cadena Valida                                  |"
+        printfn "+---------------+---------------+---------------+---------------+--------------+"
     else
-        printfn "+---------------+---------------+---------------+---------------+"
-        printfn "|                     Cadena No Valida :(                       |"
-        printfn "+---------------------------------------------------------------+"
+        printfn "+---------------+---------------+---------------+---------------+--------------+"
+        printfn "|                             Cadena No Valida :(                              |"
+        printfn "+---------------+---------------+---------------+---------------+--------------+"
     Console.ForegroundColor<-ConsoleColor.White
 //  Recursive function that display every posible way for the STRING in the NFA 
 //  (Function Made by Vazquez Reyes Rodolfo Emanuel & Montalvo Becerra Juan Gerardo)
-
 let rec node (nodo:int) (cad:string) (state:string) (histStack:string) (stack:string) =
-    
     let mutable stack = stack
     //  Variables that recover the current state and send the next
     let mutable st = ""
@@ -121,7 +123,6 @@ let rec node (nodo:int) (cad:string) (state:string) (histStack:string) (stack:st
     with
       | :? System.ArgumentOutOfRangeException -> printf ""
     //  At the start, it checks if it already acceptable
-    
     if ( proof.Equals("A"))  then
         if (stack.Length = 0) then
             body ()
@@ -129,7 +130,7 @@ let rec node (nodo:int) (cad:string) (state:string) (histStack:string) (stack:st
             Console.ForegroundColor<-ConsoleColor.Green
             printfn " = It reaches the final state and the stack is empty"
             Console.ForegroundColor<-ConsoleColor.White
-            transitionTable state true
+            transitionTable state true histStack
             histStack.Split '|' |> printfn "%A"
     //  It even checks if it's not acceptable
     elif (proof.Equals("E")) then
@@ -138,7 +139,7 @@ let rec node (nodo:int) (cad:string) (state:string) (histStack:string) (stack:st
         Console.ForegroundColor<-ConsoleColor.Red
         printfn " = It does not reach the final state"
         Console.ForegroundColor<-ConsoleColor.White
-        transitionTable state false
+        transitionTable state false histStack
         histStack.Split '|' |> printfn "%A"
     //  If neither of those occurred, it continues until it occurs    
     else
@@ -176,8 +177,7 @@ let rec node (nodo:int) (cad:string) (state:string) (histStack:string) (stack:st
                                 st <- state + "(q" + string nodo + ", " + result + ":b" + "->" + "q" + string tabla.[nodo].[2] + ")," 
                                 node (tabla.[nodo].[2]) (cad.Remove(0,1)) (st) (histStack) (stack)
                         with
-                           | :? System.ArgumentOutOfRangeException -> ()
-                        
+                           | :? System.ArgumentOutOfRangeException -> ()     
                 //  If it's not then it finishes with an E or error   
                 else
                     st <- state + "(q" + string nodo + ", " + result + ":b" + "->" + "E)" 
@@ -192,11 +192,8 @@ let rec node (nodo:int) (cad:string) (state:string) (histStack:string) (stack:st
                 else
                     st <- state + "(q" + string nodo + ", " + result + ":''" + "->" + "E)" 
                     node (tabla.[nodo].[0]) (cad) (st) (histStack) (stack)
-
         if (tabla.[nodo].[0] <> -1 && tabla.[nodo].[0] <> -10) then
-            
             //  If the node contains a lambda expression then it goes directly to the next nodes without comparing
-            
             for rule in pdaRules.[nodo].[0].Split '|' do
                 try
                     if ((stack.Substring(0,1)) = (rule.Substring(0,1)) ) then
@@ -213,11 +210,7 @@ let rec node (nodo:int) (cad:string) (state:string) (histStack:string) (stack:st
                 with
                     | :? System.ArgumentOutOfRangeException -> ()
             //  If the node has a second state then it calls to another recursive node
-            
-            
-
 [<EntryPoint>]
-
 //  Main code
 let main argv =
     //  Calls title to print the starting point
