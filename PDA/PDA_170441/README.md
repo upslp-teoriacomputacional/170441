@@ -48,4 +48,4 @@ for rule in pdaRules.[nodo].[0].Split '|' do
 It accesses to the table of rules and obtains each rule for the letter. Then, it analyzes the first letter of the input string and the first letter of the stack and depending of the rule, it could execute a push or pop operation.
 # **Is it a NP or P complexity?**
 Because the code includes a search, it indicates O(n²) for the complexity. Hence, the complexity will be polynomial.
-
+  

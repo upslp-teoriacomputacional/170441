@@ -132,16 +132,35 @@ let rec node (nodo:int) (cad:string) (state:string) (histStack:string) (stack:st
             Console.ForegroundColor<-ConsoleColor.White
             transitionTable state true histStack
             histStack.Split '|' |> printfn "%A"
+        else
+            body ()
+            printfn "%A" state
+            Console.ForegroundColor<-ConsoleColor.Green
+            printfn " = It reaches the final state and the stack is not empty"
+            Console.ForegroundColor<-ConsoleColor.White
+            transitionTable state true histStack
+            histStack.Split '|' |> printfn "%A"
     //  It even checks if it's not acceptable
     elif (proof.Equals("E")) then
-        body ()
-        printfn "%A" state
-        Console.ForegroundColor<-ConsoleColor.Red
-        printfn " = It does not reach the final state"
-        Console.ForegroundColor<-ConsoleColor.White
-        transitionTable state false histStack
-        histStack.Split '|' |> printfn "%A"
-    //  If neither of those occurred, it continues until it occurs    
+        if (stack.Length = 0) then
+            body ()
+            printfn "%A" state
+            Console.ForegroundColor<-ConsoleColor.Red
+            printfn " = It does not reach the final state and the stack is empty"
+            Console.ForegroundColor<-ConsoleColor.White
+            transitionTable state false histStack
+            histStack.Split '|' |> printfn "%A"
+        //  If neither of those occurred, it continues until it occurs
+        else
+            body ()
+            printfn "%A" state
+            Console.ForegroundColor<-ConsoleColor.Red
+            printfn " = It does not reach the final state and the stack is not empty"
+            Console.ForegroundColor<-ConsoleColor.White
+            transitionTable state false histStack
+            histStack.Split '|' |> printfn "%A"
+        //  If neither of those occurred, it continues until it occurs
+            
     else
         let histStack = histStack + "|" + stack
         let mutable chain = ""
