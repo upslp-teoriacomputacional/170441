@@ -1,3 +1,17 @@
+#*
+#******************************************************************************
+#*         Name:    Juan Gerardo     
+#*      Surname:    Montalvo Becerra
+#*           ID:    170441
+#*        Major:    IT Engineering
+#*  Institution:    Universidad Politécnica de San Luis Potosí
+#*    Professor:    Juan Carlos González Ibarra
+#*  Description:    Made in VSC, using F# language.
+#*
+#*              
+#*      Written:    20/11/2020
+#* Last updated:    21/11/2020
+#**************************************************************************** *)
 #Comandos de la practica SHELL
 grep -i 'f' quijote.txt
 grep -v '^$' quijote.txt
